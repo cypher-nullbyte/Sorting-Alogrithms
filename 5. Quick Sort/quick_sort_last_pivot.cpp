@@ -1,5 +1,4 @@
-// #include<bits/stdc++.h>
-#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
 
 
@@ -19,12 +18,45 @@ int partition(int arr[],int low,int high)
     return i;
 }
 
+// Don't want to swap the pivot separately, which is at index high. Include pivot and traverse j until <=high.
+// Moreover, i will be displaced one step ahead. So reduce 1 from i and return as new pivot position.
+int partition2(int arr[],int low,int high)
+{
+    int pivot=arr[high];
+    int i=low;
+    for(int j=low;j<=high;j++)
+    {
+        if(arr[j]<=pivot)
+        {
+            swap(arr[i],arr[j]);
+            i++;
+        }
+    }
+    return i-1;
+}
+
+// https://www.youtube.com/watch?v=3g32Z8OkZQU
+// But in this code, pivot was included in first while loop. 
+int partition_middle_pivot(int arr[], int low, int high)
+{
+    int pivot=arr[low+ (high-low)/2];
+    int i=low;
+    int j=high;
+    while(true)
+    {
+        while(arr[i]<=pivot) i++;
+        while(arr[j]>pivot) j--;
+        
+        if(i>=j) return j;
+        swap(arr[i],arr[j]);
+    }
+}
 
 void quick_sort(int arr[],int low,int high)
 {
     if(low<high)
     {
-        int pi=partition(arr,low,high);
+        int pi=partition2(arr,low,high);
         quick_sort(arr,low,pi-1);
         quick_sort(arr,pi+1,high);
     }
@@ -47,6 +79,10 @@ int main()
 }
 
 
+/*
+6
+4 5 2 1 3 5
+*/
+
 // Avg Time: O(nlogn), worst: O(n^2)
-// Aux Space: O(n) (worst case)
-// See: https://www.youtube.com/watch?v=PgBzjlCcFvc
+// See: https://www.youtube.com/watch?v=PgBzjlCcFvc (for first method, considering last element as pivot)
