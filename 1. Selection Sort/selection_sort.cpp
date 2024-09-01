@@ -26,6 +26,5 @@ int main()
 }
 
 // Time Complexity: O(n2)
-// Auxilarry Space Complexity: O(1)
 
 // Becauses Swapping involved, hence its not stable sorting. 

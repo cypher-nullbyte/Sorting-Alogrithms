@@ -16,7 +16,10 @@ int main()
             if(arr[j]<arr[min_idx]) min_idx=j;
         }
         int temp=arr[min_idx];
-        while(min_idx>i) arr[min_idx--]=arr[min_idx-1];    // this loop ensures stability (note in normal selection-sort we did swapping).
+        /* This loop ensures stability. 
+            You pick the min_idx one and put it in i-th place & slide the other numbers to right. Think!
+        */
+        while(min_idx>i) arr[min_idx--]=arr[min_idx-1];  
         arr[i]=temp;
     }
     for(int i=0;i<n;i++) cout<<arr[i]<<" ";
